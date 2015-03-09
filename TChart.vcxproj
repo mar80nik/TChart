@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A85CE6BA-CE71-4496-8538-E2A0B7AD5911}</ProjectGuid>
+    <RootNamespace>TChart</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);d:\REPO\my_lib\src\;d:\REPO\my_gsl\src\;d:\REPO\my_gsl\header;$(SolutionDir)\src</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\my_lib\src\BMPanvas.h" />
+    <ClInclude Include="..\my_lib\src\MessageInspector.h" />
+    <ClInclude Include="..\my_lib\src\MyThread.h" />
+    <ClInclude Include="..\my_lib\src\MyTime.h" />
+    <ClInclude Include="..\my_lib\src\my_color.h" />
+    <ClInclude Include="..\my_lib\src\my_lib_globals.h" />
+    <ClInclude Include="..\my_lib\src\my_lib_resources.h" />
+    <ClInclude Include="..\my_lib\src\ProtectedObject.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="src\MouseTrackerWnd.h" />
+    <ClInclude Include="src\resource1.h" />
+    <ClInclude Include="src\SetAxisRangeDlg.h" />
+    <ClInclude Include="src\TChart.h" />
+    <ClInclude Include="src\TChartElements.h" />
+    <ClInclude Include="src\TChartGlobal.h" />
+    <ClInclude Include="src\TChartPoints.h" />
+    <ClInclude Include="src\TChartSeries.h" />
+    <ClInclude Include="src\tchart_resources.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TChartApp.h" />
+    <ClInclude Include="TChartDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\my_lib\src\BMPanvas.cpp" />
+    <ClCompile Include="..\my_lib\src\MessageInspector.cpp" />
+    <ClCompile Include="..\my_lib\src\MyThread.cpp" />
+    <ClCompile Include="..\my_lib\src\MyTime.cpp" />
+    <ClCompile Include="..\my_lib\src\my_color.cpp" />
+    <ClCompile Include="..\my_lib\src\ProtectedObject.cpp" />
+    <ClCompile Include="..\my_lib\src\type_array.cpp" />
+    <ClCompile Include="src\MouseTrackerWnd.cpp" />
+    <ClCompile Include="src\OwnerDrawBtn.cpp" />
+    <ClCompile Include="src\SeriesListCtrl.cpp" />
+    <ClCompile Include="src\SeriesListDlg.cpp" />
+    <ClCompile Include="src\SeriesStyleDlg.cpp" />
+    <ClCompile Include="src\SeriesValuesDlg.cpp" />
+    <ClCompile Include="src\SetAxisRangeDlg.cpp" />
+    <ClCompile Include="src\TChart.cpp" />
+    <ClCompile Include="src\TChartElements.cpp" />
+    <ClCompile Include="src\TChartPoints.cpp" />
+    <ClCompile Include="src\TChartSeries.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TChartApp.cpp" />
+    <ClCompile Include="TChartDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\my_lib\src\my_lib_resources.rc" />
+    <ResourceCompile Include="src\tchart_resources.rc" />
+    <ResourceCompile Include="TChart.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\my_lib\src\my_lib_resources.aps" />
+    <None Include="res\TChart.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\stateico.bmp" />
+    <Image Include="res\TChart.ico" />
+    <Image Include="src\res\stateico.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="src\tchart_resources.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

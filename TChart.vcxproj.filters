@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{5a03f4e2-0de7-486e-a064-3db7d022c32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="my_lib">
+      <UniqueIdentifier>{d45ea6ba-8a23-4ccb-9186-4f428c725874}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TChartDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MouseTrackerWnd.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SetAxisRangeDlg.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TChart.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TChartElements.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TChartGlobal.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TChartPoints.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TChartSeries.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tchart_resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\BMPanvas.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\MessageInspector.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\my_color.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\my_lib_globals.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\my_lib_resources.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\MyThread.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\MyTime.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\my_lib\src\ProtectedObject.h">
+      <Filter>my_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="TChartApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TChartDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MouseTrackerWnd.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SetAxisRangeDlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TChart.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TChartElements.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TChartPoints.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TChartSeries.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\BMPanvas.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\MessageInspector.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\my_color.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\MyThread.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\MyTime.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\ProtectedObject.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="TChartApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\my_lib\src\type_array.cpp">
+      <Filter>my_lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SeriesListCtrl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SeriesValuesDlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OwnerDrawBtn.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SeriesListDlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SeriesStyleDlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TChart.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="src\tchart_resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="..\my_lib\src\my_lib_resources.rc">
+      <Filter>my_lib</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\TChart.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\my_lib\src\my_lib_resources.aps">
+      <Filter>my_lib</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\TChart.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\stateico.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\res\stateico.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
