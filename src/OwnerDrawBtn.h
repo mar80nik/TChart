@@ -1,8 +1,5 @@
 #pragma once
 
-
-// OwnerDrawBtn
-
 class OwnerDrawBtn : public CButton
 {
 	DECLARE_DYNAMIC(OwnerDrawBtn)

@@ -1,11 +1,5 @@
-// TChartSeries.h: interface for the TChartSeries class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #pragma once
 
-#include "tchartglobal.h"
-#include "TChartPoints.h"
 #include "tChartElements.h"
 
 enum SeriesStatus {SER_INACTIVE, SER_ACTIVE,SER_CALIBRATOR,SER_LOCKED,SER_ERROR};

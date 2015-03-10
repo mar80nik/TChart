@@ -1,6 +1,5 @@
 #pragma once
 
-#include "TChartGlobal.h"
 #include "TChartPoints.h"
 
 class TAbstractElement

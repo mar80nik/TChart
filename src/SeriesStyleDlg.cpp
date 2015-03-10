@@ -1,11 +1,5 @@
-// SeriesStyleDialog.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "SeriesStyleDlg.h"
-
-
-// SeriesStyleDialog dialog
 
 IMPLEMENT_DYNAMIC(SeriesStyleDialog, CDialog)
 

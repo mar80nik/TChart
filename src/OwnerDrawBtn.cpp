@@ -1,11 +1,5 @@
-// OwnerDrawBtn.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "OwnerDrawBtn.h"
-
-
-// OwnerDrawBtn
 
 IMPLEMENT_DYNAMIC(OwnerDrawBtn, CButton)
 

@@ -101,6 +101,29 @@ BOOL CTChartDlg::OnInitDialog()
 	Chart1.Create(this, r); 	Chart1.SetVisible(true);
 	Chart1.ShowWindow(SW_SHOW);
 
+	void *x;
+	if((x=Chart1.Series.GainAcsess(WRITE))!=NULL)
+	{
+		SeriesProtector guard(x); TSeriesArray& series(guard); CString str;
+		TSimplePointSeries* t1 = NULL; SimplePoint pnt;	
+		str.Format("Test1");
+		if((t1=new TSimplePointSeries(str))!=0)	
+		{
+			series.Add(t1); 
+			t1->_SymbolStyle::Set(NO_SYMBOL);
+			t1->AssignColors(ColorsStyle(clRED,series.GetRandomColor()));
+			t1->SetVisible(true); 
+
+			t1->ParentUpdate(UPD_OFF);
+			for(int i = 0; i < 100; i++) 
+			{
+				pnt.x = i; pnt.y = sin((double)i); t1->AddXY(pnt);
+			}
+			t1->ParentUpdate(UPD_ON);
+		}	
+		Chart1.PostMessage(UM_CHART_SHOWALL);		
+	}
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 

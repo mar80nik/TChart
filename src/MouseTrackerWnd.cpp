@@ -1,11 +1,5 @@
-// MouseTrackerWnd.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "MouseTrackerWnd.h"
-
-
-// MouseTrackerWnd
 
 IMPLEMENT_DYNAMIC(MouseTrackerWnd, CWnd)
 MouseTrackerWnd::MouseTrackerWnd()

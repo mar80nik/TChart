@@ -6,7 +6,7 @@
 #include "tchartseries.h"
 #include "MouseTrackerWnd.h"
 #include "SetAxisRangeDlg.h"
-#include "my_lib_globals.h"
+#include "SeriesListDlg.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // TChart window
@@ -68,11 +68,12 @@ protected:
 	CArray<AreaOfInterest> Clickers; 
 	CBrush BckgBrush;
 	PointsRgn MinMax;
+
+	SeriesListDlg SeriesListDialog;
 public:	
 	SetAxisRangeDlg SetRangeDlg;
 	ProtectedBMPanvas buffer;
 	ProtectedSeriesArray Series;
-	CWnd* SeriesDataWnd;
 	ChartRender SeriesRender, FrameRender;
 	BMPanvas sbuf,fbuf;
 	RepaintSource repaint;

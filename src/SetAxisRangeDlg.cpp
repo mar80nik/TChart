@@ -1,11 +1,5 @@
-// SetAxisRangeDlg.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "SetAxisRangeDlg.h"
-
-
-// SetAxisRangeDlg dialog
 
 IMPLEMENT_DYNAMIC(SetAxisRangeDlg, CDialog)
 
@@ -13,13 +7,9 @@ SetAxisRangeDlg::SetAxisRangeDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(SetAxisRangeDlg::IDD, pParent)
 	, MaxY(0)
 	, MinY(0)
-{
+{}
 
-}
-
-SetAxisRangeDlg::~SetAxisRangeDlg()
-{
-}
+SetAxisRangeDlg::~SetAxisRangeDlg() {}
 
 void SetAxisRangeDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -31,6 +21,3 @@ void SetAxisRangeDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(SetAxisRangeDlg, CDialog)
 END_MESSAGE_MAP()
-
-
-// SetAxisRangeDlg message handlers

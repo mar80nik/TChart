@@ -3,13 +3,11 @@
 #include <afxtempl.h>
 #include <afxmt.h>
 #include <math.h>
+#include <memory.h>
 #include "BMPanvas.h"
-#include "MessageInspector.h"
-#include "ProtectedObject.h"
 #include "MyThread.h"
 #include "type_array.h"
 #include "my_color.h"
-#include <memory.h>
 
 #define SET(byte,mask) byte|=(mask)
 #define RST(byte,mask) byte&=(~(mask))

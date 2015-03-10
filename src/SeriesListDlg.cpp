@@ -1,9 +1,6 @@
-// DialogBarTab2.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "SeriesListDlg.h"
-#include "TChartSeries.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // DialogBarTab2 dialog
 

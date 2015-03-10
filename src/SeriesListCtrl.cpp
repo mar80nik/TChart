@@ -1,20 +1,6 @@
-// MyListCtrl.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "SeriesListCtrl.h"
 #include "SeriesValuesDlg.h"
-#include "tchartseries.h"
-#include "mythread.h"
-#include "tchart_resources.h"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-
-#include "SeriesListCtrl.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // MyListCtrl
@@ -112,7 +98,7 @@ BYTE SeriesListCtrl::GetState(int num)
 void SeriesListCtrl::UpdateSeriesList()
 {
 	int n=HitItem; LV_ITEM lvi; CString T;	void *x; CBitmap * tmpbmp; BMPanvas icon;
-
+	if (Series == NULL) return;
 	if((x=Series->GainAcsess(READ))!=0)
 	{
 		SeriesProtector Protector(x); TSeriesArray& Series(Protector);

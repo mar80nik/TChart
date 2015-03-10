@@ -1,6 +1,5 @@
 #pragma once
 
-
 class MouseTrackerWnd : public CWnd
 {
 	DECLARE_DYNAMIC(MouseTrackerWnd)

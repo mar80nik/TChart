@@ -1,13 +1,5 @@
-// TChart.cpp : implementation file
 #include "stdafx.h"
 #include "TChart.h"
-//#include "resource.h"
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // TChart
@@ -37,7 +29,7 @@ END_MESSAGE_MAP()
 
 TChart::TChart(CString name): TAbstractGraphics(name)
 {	
-	repaint=REPAINT_NONE; SeriesDataWnd=NULL; void *x; 
+	repaint=REPAINT_NONE; void *x; 
 	if((x=Series.GainAcsess(WRITE))!=0)
 	{
 		SeriesProtector Protector(x); TSeriesArray& series(Protector);
@@ -99,6 +91,9 @@ BOOL TChart::Create(CWnd* pParentWnd,const RECT& rect)
 	BckgBrush.CreateSolidBrush(RGB(140,140,140));
 	InitBasicElements();
 	OnSeriesUpdate(0,0);
+
+	SeriesListDialog.List2.Series = &Series;
+	SeriesListDialog.Create(SeriesListDlg::IDD,this);
 	return ret;
 }
 
@@ -493,10 +488,11 @@ void TChart::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void TChart::OnSeriesmenuShowvalues()
 {	
-	if(SeriesDataWnd!=NULL)
-	{
-		SeriesDataWnd->PostMessage(UM_SERIES_UPDATE,SW_SHOW,(LPARAM)&Series);
-	}
+	SeriesListDialog.ShowWindow(SW_SHOW);
+	//if(SeriesDataWnd!=NULL)
+	//{
+	//	SeriesDataWnd->PostMessage(UM_SERIES_UPDATE,SW_SHOW,(LPARAM)&Series);
+	//}
 }
 
 void TChartZoomAreaRect::_Draw( BMPanvas* canvas )
@@ -556,9 +552,12 @@ LRESULT TChart::OnChartBufferUpdate( WPARAM wParam, LPARAM lParam )
 
 LRESULT TChart::OnSeriesUpdate( WPARAM wParam, LPARAM lParam )
 {
-    if(SeriesDataWnd!=NULL) SeriesDataWnd->PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
-	CWnd* mainfrm=AfxGetMainWnd();
-	if(mainfrm!=NULL) mainfrm->PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
+	if (::IsWindow(SeriesListDialog.m_hWnd))
+	{
+		//SeriesListDialog.PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
+	}
+	//CWnd* mainfrm=AfxGetMainWnd();
+	//if(mainfrm!=NULL) mainfrm->PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
 	UpdateNow(REPAINT_DEFAULT);
 	return 0;
 }
@@ -590,6 +589,7 @@ void TChart::OnSize(UINT nType, int cx, int cy)
 
 void TChart::OnDestroy()
 {
+	SeriesListDialog.DestroyWindow();
 	font1.DeleteObject();
 	font2.DeleteObject();
 	DestroyElements();

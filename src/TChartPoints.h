@@ -1,13 +1,7 @@
-// ScaterErrorPoint.h: interface for the ScaterErrorPoint class.
-//
-//////////////////////////////////////////////////////////////////////
 #pragma once
 
 #include "TChartGlobal.h"
 
-
-//CHNL1=...Y01X,CHNL2=...Y10X, BCKG=...YXX1, NON-BCKG=...YXX0
-//T type=...YYYXXX
 enum PointChnlType {mCHNL=6, shCHNL=1, KEEP_CHNL=0, CHNL0=1,CHNL1=2};
 enum PointBckgType {mBCKG=1, shBCKG=0, NON_BCKG=0, BCKG=1, KEEP_BCKG=2 };
 enum PointTypeID {mType=0x38, shType=3, KEEP_TYPE=0, 
@@ -21,7 +15,6 @@ public:
 	PointTypes() {val=0;}
 	bool operator==(PointTypes& p) {return (val==p.val);}
 	PointTypes& operator=(const PointTypes& p) {val = p.val; return *this;}
-	int GetChannel() {return ((val&mCHNL)>>shCHNL);};
 	void Set(PointTypeID id, PointChnlType chnl=KEEP_CHNL, PointBckgType bckg=KEEP_BCKG) 
 	{
 		if(id!=KEEP_TYPE) {val&=(~mType); val|=(id<<shType);}
