@@ -18,23 +18,23 @@ SeriesStyleDialog::~SeriesStyleDialog()
 void SeriesStyleDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT1, SeriesName);
-	DDX_Control(pDX, IDC_COMBO1, SymbolStyleCombo);
-	DDX_Control(pDX, IDC_COMBO4, LineStyleCombo);
-	DDX_Control(pDX, IDC_COMBO5, ErrBarsStyleCombo);
-	DDX_Control(pDX, IDC_BUTTON1, LineColorBtn);
-	DDX_Control(pDX, IDC_BUTTON3, FillColorBtn);
+	DDX_Text(pDX, IDC_TCHART_EDIT1, SeriesName);
+	DDX_Control(pDX, IDC_TCHART_COMBO1, SymbolStyleCombo);
+	DDX_Control(pDX, IDC_TCHART_COMBO4, LineStyleCombo);
+	DDX_Control(pDX, IDC_TCHART_COMBO5, ErrBarsStyleCombo);
+	DDX_Control(pDX, IDC_TCHART_BUTTON1, LineColorBtn);
+	DDX_Control(pDX, IDC_TCHART_BUTTON3, FillColorBtn);
 }
 
 
 BEGIN_MESSAGE_MAP(SeriesStyleDialog, CDialog)
 	ON_WM_CREATE()
-	ON_BN_CLICKED(IDC_BUTTON1, &SeriesStyleDialog::OnBnClickedLineColor)
-	ON_BN_CLICKED(IDC_BUTTON3, &SeriesStyleDialog::OnBnClickedFillColor)
+	ON_BN_CLICKED(IDC_TCHART_BUTTON1, &SeriesStyleDialog::OnBnClickedLineColor)
+	ON_BN_CLICKED(IDC_TCHART_BUTTON3, &SeriesStyleDialog::OnBnClickedFillColor)
 	ON_WM_CTLCOLOR()
-	ON_CBN_SELCHANGE(IDC_COMBO1, &SeriesStyleDialog::OnBnClickedButton2)
-	ON_CBN_SELCHANGE(IDC_COMBO4, &SeriesStyleDialog::OnBnClickedButton2)
-	ON_CBN_SELCHANGE(IDC_COMBO5, &SeriesStyleDialog::OnCbnSelchangeCombo5)
+	ON_CBN_SELCHANGE(IDC_TCHART_COMBO1, &SeriesStyleDialog::OnBnClickedButton2)
+	ON_CBN_SELCHANGE(IDC_TCHART_COMBO4, &SeriesStyleDialog::OnBnClickedButton2)
+	ON_CBN_SELCHANGE(IDC_TCHART_COMBO5, &SeriesStyleDialog::OnCbnSelchangeCombo5)
 END_MESSAGE_MAP()
 
 

@@ -17,7 +17,7 @@ public:
 	virtual ~SeriesStyleDialog();
 
 // Dialog Data
-	enum { IDD = IDD_SERIES_PROP_DLG };
+	enum { IDD = IDD_TCHART_SERIES_PROP_DLG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

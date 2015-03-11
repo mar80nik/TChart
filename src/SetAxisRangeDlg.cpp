@@ -14,8 +14,8 @@ SetAxisRangeDlg::~SetAxisRangeDlg() {}
 void SetAxisRangeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT1, MaxY);
-	DDX_Text(pDX, IDC_EDIT2, MinY);
+	DDX_Text(pDX, IDC_TCHART_EDIT1, MaxY);
+	DDX_Text(pDX, IDC_TCHART_EDIT2, MinY);
 }
 
 

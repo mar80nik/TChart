@@ -18,7 +18,7 @@ void SeriesListDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(DialogBarTab2)
-	DDX_Control(pDX, IDC_LIST2, List2);
+	DDX_Control(pDX, IDC_TCHART_LIST2, List2);
 	//}}AFX_DATA_MAP
 }
 
@@ -26,12 +26,12 @@ void SeriesListDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(SeriesListDlg, CDialog)
 	//{{AFX_MSG_MAP(DialogBarTab2)
 	ON_WM_SHOWWINDOW()
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_LIST2, OnLvnColumnclickList2)
-	ON_NOTIFY(LVN_ENDLABELEDIT, IDC_LIST2, OnLvnEndlabeleditList2)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_TCHART_LIST2, OnLvnColumnclickList2)
+	ON_NOTIFY(LVN_ENDLABELEDIT, IDC_TCHART_LIST2, OnLvnEndlabeleditList2)
 	ON_MESSAGE(UM_SERIES_UPDATE,OnSeriesUpdate)	
 //}}AFX_MSG_MAP
 ON_WM_CREATE()
-ON_NOTIFY(NM_CUSTOMDRAW, IDC_LIST2, OnNMCustomdrawList2)
+ON_NOTIFY(NM_CUSTOMDRAW, IDC_TCHART_LIST2, OnNMCustomdrawList2)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

@@ -20,7 +20,7 @@ public:
 
 // Dialog Data
 	//{{AFX_DATA(SeriesValuesDialog)
-	enum { IDD = IDD_SERIES_VALUES_DLG };
+	enum { IDD = IDD_TCHART_SERIES_VALUES_DLG };
 	CListCtrl	ListBox2;
 	CListBox	ListBox1;
 	//}}AFX_DATA

@@ -14,7 +14,7 @@ BEGIN_MESSAGE_MAP(TChart, MouseTrackerWnd)
 	ON_MESSAGE(UM_SERIES_UPDATE,OnSeriesUpdate)
 	ON_MESSAGE(UM_CHART_SHOWALL,OnChartShowAll)
 	ON_WM_CONTEXTMENU()
-	ON_COMMAND(ID_SERIESMENU_SHOWVALUES, OnSeriesmenuShowvalues)
+	ON_COMMAND(ID_TCHART_SERIESMENU_SHOWVALUES, OnSeriesmenuShowvalues)
 	//}}AFX_MSG_MAP	
 	ON_WM_SIZE()
 	ON_WM_DESTROY()
@@ -84,7 +84,7 @@ BOOL TChart::Create(CWnd* pParentWnd,const RECT& rect)
 		series.SetRender(SERIES_RENDER);
 	}
 	SetFont(&font1);
-	menu1.LoadMenu(IDR_MENU2);
+	menu1.LoadMenu(IDR_TCHART_MENU2);
     OnPaintTimer.Start();	
 
 	pThrd=AfxGetThread();	pWND=this;

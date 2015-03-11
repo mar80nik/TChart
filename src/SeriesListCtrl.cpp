@@ -7,12 +7,10 @@
 
 IMPLEMENT_DYNAMIC(SeriesListCtrl, CListCtrl)
 
-//#define IDB_STATEICONS 0xffffff01
-
 SeriesListCtrl::SeriesListCtrl()
 {
 	ImageList2.Detach();
-	ImageList2.Create(IDB_STATEICONS,16,1,clRED);	
+	ImageList2.Create(IDB_TCHART_STATEICONS,16,1,clRED);	
 	SortStatus=1; SortMask=3;
     Series=0;
 	bckg_color=GetSysColor(COLOR_BTNFACE);
@@ -28,17 +26,17 @@ BEGIN_MESSAGE_MAP(SeriesListCtrl, CListCtrl)
 	//{{AFX_MSG_MAP(MyListCtrl)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
-	ON_COMMAND(ID_SERIESMENU_DELETESERIES,OnDeleteSeries)
-	ON_COMMAND(ID_SERIESMENU_SAVEASTEXT,OnSaveAsText)
-	ON_COMMAND(ID_SERIESMENU_CHANGESTYLE,OnMenuChangeStyle)
+	ON_COMMAND(ID_TCHART_SERIESMENU_DELETESERIES,OnDeleteSeries)
+	ON_COMMAND(ID_TCHART_SERIESMENU_SAVEASTEXT,OnSaveAsText)
+	ON_COMMAND(ID_TCHART_SERIESMENU_CHANGESTYLE,OnMenuChangeStyle)
 
 	ON_WM_CONTEXTMENU()	
-	ON_COMMAND(ID_CHANGESTATUS_ACTIVE, OnChangestatusActive)
-	ON_COMMAND(ID_CHANGESTATUS_INACTIVE, OnChangestatusInactive)
-	ON_COMMAND(ID_CHANGESTATUS_CALIBRATOR, OnChangestatusCalibrator)
+	ON_COMMAND(ID_TCHART_CHANGESTATUS_ACTIVE, OnChangestatusActive)
+	ON_COMMAND(ID_TCHART_CHANGESTATUS_INACTIVE, OnChangestatusInactive)
+	ON_COMMAND(ID_TCHART_CHANGESTATUS_CALIBRATOR, OnChangestatusCalibrator)
 	ON_WM_KEYDOWN()
 	ON_WM_CTLCOLOR( )
-	ON_COMMAND(ID_SERIESMENU_SHOWVALUES, OnSeriesmenuShowvalues)
+	ON_COMMAND(ID_TCHART_SERIESMENU_SHOWVALUES, OnSeriesmenuShowvalues)
 //	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
 //	ON_WM_CREATE()
@@ -224,7 +222,7 @@ int CALLBACK CompareFunc1(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 
 void SeriesListCtrl::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CMenu menu1; menu1.LoadMenu(IDR_MENU1);
+	CMenu menu1; menu1.LoadMenu(IDR_TCHART_MENU1);
 	CMenu *menu2=menu1.GetSubMenu(0); UINT mode;
 
 	POSITION pos=GetFirstSelectedItemPosition();

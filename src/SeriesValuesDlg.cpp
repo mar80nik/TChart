@@ -18,8 +18,8 @@ void SeriesValuesDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(SeriesValuesDialog)
-	DDX_Control(pDX, IDC_LIST2, ListBox2);
-	DDX_Control(pDX, IDC_LIST1, ListBox1);
+	DDX_Control(pDX, IDC_TCHART_LIST2, ListBox2);
+	DDX_Control(pDX, IDC_TCHART_LIST1, ListBox1);
 	//}}AFX_DATA_MAP
 }
 
@@ -27,7 +27,7 @@ void SeriesValuesDialog::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(SeriesValuesDialog, CDialog)
 	//{{AFX_MSG_MAP(SeriesValuesDialog)
 	//}}AFX_MSG_MAP
-	ON_NOTIFY(LVN_KEYDOWN, IDC_LIST2, &SeriesValuesDialog::OnLvnKeydownList2)
+	ON_NOTIFY(LVN_KEYDOWN, IDC_TCHART_LIST2, &SeriesValuesDialog::OnLvnKeydownList2)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

@@ -11,7 +11,7 @@ public:
 	virtual ~SetAxisRangeDlg();
 
 // Dialog Data
-	enum { IDD = IDD_SET_AXIS_RANGE_DLG };
+	enum { IDD = IDD_TCHART_SET_AXIS_RANGE_DLG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

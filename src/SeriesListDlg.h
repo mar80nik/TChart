@@ -23,7 +23,7 @@ public:
 
 // Dialog Data
 	//{{AFX_DATA(DialogBarTab2)
-	enum { IDD = IDD_SERIES_LIST_DLG };
+	enum { IDD = IDD_TCHART_SERIES_LIST_DLG };
 	SeriesListCtrl	List2;
 	//}}AFX_DATA
 
