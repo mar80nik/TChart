@@ -109,15 +109,14 @@ void SeriesValuesDialog::OnLvnKeydownList2(NMHDR *pNMHDR, LRESULT *pResult)
 			n=graph->GetSize();
 			pos=ListBox2.GetFirstSelectedItemPosition();				
 			while(pos) arr.Add(ListBox2.GetNextSelectedItem(pos));
-			graph->ParentUpdate(UPD_OFF);
+			graph->SetParentUpdateStatus(UPD_OFF);
 			for(i=0;i<arr.GetSize();i++)
 			{
 				n=arr[i];
 				graph->RemoveAt(n-i);
 				ListBox2.DeleteItem(n-i);
 			}
-			graph->ParentUpdate(UPD_ON);
-			graph->PostParentMessage(UM_SERIES_UPDATE);	
+			graph->SetParentUpdateStatus(UPD_ON);
 		}
 		break;
 	}

@@ -5,7 +5,7 @@
 enum PointChnlType {mCHNL=6, shCHNL=1, KEEP_CHNL=0, CHNL0=1,CHNL1=2};
 enum PointBckgType {mBCKG=1, shBCKG=0, NON_BCKG=0, BCKG=1, KEEP_BCKG=2 };
 enum PointTypeID {mType=0x38, shType=3, KEEP_TYPE=0, 
-	ErrorPntType=0, ChanelPntType, TransmitPnt, GenericPnt, AveragePnt, DivisionError};
+	ErrorPntType=0, ChanelPntType, TransmitPnt, AveragePnt, DivisionError, GenericPnt = 0xE};
 
 class PointTypes
 {
@@ -33,7 +33,7 @@ class AbstractPoint2D
 {	
 public:
 	PointTypes type;
-	AbstractPoint2D(int tag=0) {type.val=tag;}
+	AbstractPoint2D(int tag = GenericPnt) {type.val=tag;}
 	virtual void Serialize(CArchive& ar);
 	BOOL IsVisible() 
 	{

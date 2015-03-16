@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "tchartelements.h"
 
+unsigned int id_cntr = 0;
+
 TChartElement::TChartElement(CString name): TAbstractGraphics(name) {}
 
 void TChartElement::Create(TAbstractElement *parent,ColorsStyle &style)
@@ -144,7 +146,7 @@ void TChartBackground::_Draw(BMPanvas* canvas)
 
 TAbstractGraphics::TAbstractGraphics(CString name): TAbstractElement(name)
 {
-	visible=false; Render=NULL;
+	visible=true; Render=NULL;
 	brush.CreateSolidBrush(clWHITE);
 	pen.CreatePen(PS_SOLID,1,clBLACK);
 }
@@ -308,3 +310,14 @@ void TChartAxisVertical::MajorTicks::Grid::_Draw( BMPanvas* canvas)
 }
 
 TChartAxisVertical::MajorTicks::Grid::Grid( CString name ): TChartGrid(name) {}
+
+COLORREF ColorsStyle::GetRandomColor()
+{	
+	return HSLColor(360*rand()/RAND_MAX);
+}
+
+void ColorsStyle::Serialize( CArchive& ar )
+{
+	if (ar.IsStoring()) {ar << BColor << PColor;}
+	else {ar >> BColor >> PColor;}
+}

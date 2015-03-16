@@ -32,8 +32,8 @@ BEGIN_MESSAGE_MAP(SeriesStyleDialog, CDialog)
 	ON_BN_CLICKED(IDC_TCHART_BUTTON1, &SeriesStyleDialog::OnBnClickedLineColor)
 	ON_BN_CLICKED(IDC_TCHART_BUTTON3, &SeriesStyleDialog::OnBnClickedFillColor)
 	ON_WM_CTLCOLOR()
-	ON_CBN_SELCHANGE(IDC_TCHART_COMBO1, &SeriesStyleDialog::OnBnClickedButton2)
-	ON_CBN_SELCHANGE(IDC_TCHART_COMBO4, &SeriesStyleDialog::OnBnClickedButton2)
+	ON_CBN_SELCHANGE(IDC_TCHART_COMBO1, &SeriesStyleDialog::UpdateSeriesStyle)
+	ON_CBN_SELCHANGE(IDC_TCHART_COMBO4, &SeriesStyleDialog::UpdateSeriesStyle)
 	ON_CBN_SELCHANGE(IDC_TCHART_COMBO5, &SeriesStyleDialog::OnCbnSelchangeCombo5)
 END_MESSAGE_MAP()
 
@@ -110,7 +110,7 @@ int SeriesStyleDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void SeriesStyleDialog::OnBnClickedButton2()
+void SeriesStyleDialog::UpdateSeriesStyle()
 {
 	void *x; UpdateData();
 	if((x=Series->GainAcsess(WRITE))!=NULL)
@@ -142,8 +142,6 @@ void SeriesStyleDialog::OnBnClickedButton2()
 		}
 
 		graph->SetStyle(style);
-		graph->PostParentMessage(UM_SERIES_UPDATE);	
-
 	}
 	
 }
@@ -173,8 +171,6 @@ void SeriesStyleDialog::OnBtnChangeColor(CWnd* pWnd)
 			TChartSeries *graph=series[graph_num];
 
 			graph->AssignColors(ColorsStyle(FillColorBtn.FaceColor,LineColorBtn.FaceColor));
-			graph->PostParentMessage(UM_SERIES_UPDATE);	
-
 		}
 
 	}
@@ -204,15 +200,15 @@ HBRUSH SeriesStyleDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void SeriesStyleDialog::OnCbnSelchangeCombo1()
 {
-	OnBnClickedButton2();	
+	UpdateSeriesStyle();	
 }
 
 void SeriesStyleDialog::OnCbnSelchangeCombo4()
 {
-	OnBnClickedButton2();		
+	UpdateSeriesStyle();		
 }
 
 void SeriesStyleDialog::OnCbnSelchangeCombo5()
 {
-	OnBnClickedButton2();
+	UpdateSeriesStyle();
 }

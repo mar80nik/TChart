@@ -2,9 +2,6 @@
 
 #include "tChartElements.h"
 
-enum SeriesStatus {SER_INACTIVE, SER_ACTIVE,SER_CALIBRATOR,SER_LOCKED,SER_ERROR};
-enum UpdateStatus {UPD_ON,UPD_OFF};
-enum SeriesSearchPatternMode {SERIES_NAME=1, SERIES_STATUS=2, SERIES_TYPE=4, SERIES_PID=8};
 struct SeriesSearchPattern
 {
 	CString name;
@@ -33,7 +30,7 @@ template <class PointToDrawType> // C1 - values type
 class ChartSeriesStyleTemplate: public _LineStyle, public _SymbolStyle, public _ErrorBarStyle<PointToDrawType>
 {
 protected:	
-	ChartSeriesStyleParams GetStyle() 
+	ChartSeriesStyleParams GetStyle() const
 	{
 		ChartSeriesStyleParams ret;
 		*((LineStyleStyleParams*)&ret)=*((LineStyleStyleParams*)this);
@@ -84,19 +81,20 @@ enum TChartImportMsgDestroy {DO_NOT_DELETE_MSG, DELETE_IMPORT_MSG};
 class TChartSeries: public TAbstractGraphics
 {
 	virtual int _FindMinMax()=0;
+	int PID;
+	static int SeriesCounter;
 protected:
 	bool update;
 	int SeriesType, Status;
-	UpdateStatus upd;	
 public:	
 	static PointTypes BckgCh0,BckgCh1,Ch0,Ch1, Transmit;
-	int PID; PointTypes PointType;
-	PointsRgn MinMax;
-	static int SeriesCounter;
+	PointTypes PointType;
+	PointsRgn MinMax;	
 //-------------------------------------------
 	TChartSeries(CString name);
 	virtual ~TChartSeries();
 
+	int GetPID() const {return PID;}
 	virtual void _UpdateIcon(BMPanvas&) {};
 	void UpdateIcon(BMPanvas&);
 	void ChangeStyle (ChartSeriesStyleParams &style);
@@ -107,18 +105,19 @@ public:
 	void SetStatus(int);
 	void GetStatus(CString&);
 	virtual void RemoveAt(int n)=0;
-	virtual ChartSeriesStyleParams GetStyle()=0;
-	virtual void SetStyle(ChartSeriesStyleParams style)=0;
+	virtual ChartSeriesStyleParams GetStyle() const =0 ;
 
 	virtual void ClearAll()=0;	
-	virtual int GetSize()=0;	
+	virtual int GetSize() const =0;	
 	virtual void Serialize(CArchive& ar);
 	virtual void FormatElement(int n, CString &t)=0;
 	virtual void GetInfo(CStringArray &)=0;	
 	virtual int ImportData(MessagesInspectorSubject* pnt,TChartImportMsgDestroy destroy)=0;
-	void ParentUpdate(UpdateStatus sts);
+
+	virtual void SetStyle(ChartSeriesStyleParams style)=0;
+	virtual void AssignColors(ColorsStyle &style)=0;
 	virtual void SetVisible(BYTE t);
-	virtual BOOL PostParentMessage(UINT msg,WPARAM wParam=0, LPARAM lParam=0);
+	virtual void SetParentUpdateStatus( UpdateStatus sts );
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -131,8 +130,7 @@ protected:
 public:
 	struct DataImportMsg: public MessageForWindow
 	{
-		void* DestSeries;
-		PointStoreType Points;
+		SeriesTemplate* DestSeries;
 		DataImportMsg() {Name="ChartMessageM1"; Msg=UM_SERIES_DATA_IMPORT; ClassID=ID; DestSeries=NULL;};
 		virtual ~DataImportMsg() {};
 	};
@@ -143,14 +141,20 @@ public:
 	SeriesTemplate(CString name, ChartSeriesStyleParams style=ChartSeriesStyleParams()):
 	  TChartSeries(name), ChartSeriesStyleTemplate<PointToDrawType>(style)	{ SeriesType=ID; DataImportID=ID;};
 	virtual ~SeriesTemplate() {};	
-	int GetSize() {return Values.GetSize();};
-	virtual ChartSeriesStyleParams GetStyle() 
+	int GetSize() const {return Values.GetSize();};
+	virtual ChartSeriesStyleParams GetStyle() const
 	{
 		return ChartSeriesStyleTemplate<PointToDrawType>::GetStyle();
 	};
 	virtual void SetStyle(ChartSeriesStyleParams style)
 	{
 		ChartSeriesStyleTemplate<PointToDrawType>::SetStyle(style);
+		PostParentMessage(UM_SERIES_UPDATE);	
+	}
+	virtual void AssignColors(ColorsStyle &style)
+	{
+		TAbstractGraphics::AssignColors(style);
+		PostParentMessage(UM_SERIES_UPDATE);	
 	}
 	virtual TypeOfPoint operator[](int i) 
 	{
@@ -183,35 +187,43 @@ public:
 			ChartSeriesStyleTemplate<PointToDrawType>::Serialize(ar);
 			Values.RemoveAll(); int numValues;
 			ar >> numValues;
-			ParentUpdate(UPD_OFF);
+			SetParentUpdateStatus(UPD_OFF);
 			for(int i=0;i<numValues;i++) {t.Serialize(ar); Values.Add(t);}
-			ParentUpdate(UPD_ON);
+			SetParentUpdateStatus(UPD_ON);
 		}
 	}
 	virtual int AddXY(TypeOfPoint& pnt)
 	{
 		int ret=Values.Add(pnt); 
-		if(ret>=0) {update=true; PostParentMessage(UM_SERIES_UPDATE);}		
+		if(ret>=0) 
+		{
+			update=true; 
+			PostParentMessage(UM_SERIES_UPDATE);
+		}		
 		return ret;
 	}
 	virtual void RemoveAt(int n)
 	{
 		Values.RemoveAt(n); 
-		update=true; PostParentMessage(UM_SERIES_UPDATE);		
+		update=true; 
+		PostParentMessage(UM_SERIES_UPDATE);		
 		return;
 	}
 	virtual int ImportData(MessagesInspectorSubject* _pnt,TChartImportMsgDestroy destroy)
 	{
 		int ret=0; DataImportMsg* msg=(DataImportMsg*)_pnt;
-		if(msg->DestSeries==this)				
+		if(_pnt->ValidateClass(DataImportID))
 		{
-			if(_pnt->ValidateClass(DataImportID))
+			if(msg->DestSeries == this)				
 			{
-				DataImportMsg *t=(DataImportMsg *)_pnt;
-				upd=UPD_OFF;
-				for(int i=0;i<t->Points.GetSize();i++) ret=AddXY((t->Points)[i]);
-				upd=UPD_ON;
-				if(ret!=0) update=true;			
+				int num_of_add_points = 0;
+				SeriesTemplate* series = (SeriesTemplate*)msg->DestSeries;				
+				SetParentUpdateStatus(UPD_OFF);
+				for(int i = 0; i < series->Values.GetSize(); i++) 
+				{
+					AddXY((series->Values)[i]); ret++;
+				}
+				SetParentUpdateStatus(UPD_ON);
 			}
 		}
 		if(destroy==DELETE_IMPORT_MSG) delete _pnt;
@@ -245,14 +257,35 @@ public:
 			for(j=0;j<size;j++) (this->*_SymbolStyle::Draw)(canvas,pnts[j]);
 		delete[] pnts;
 	}
-	void ClearAll() {Values.RemoveAll();PostParentMessage(UM_SERIES_UPDATE);}
-	DataImportMsg* CreateDataImportMsg()
+	void ClearAll() 
+	{
+		Values.RemoveAll();
+		PostParentMessage(UM_SERIES_UPDATE);
+	}
+	void DispatchDataImportMsg()
 	{
 		DataImportMsg* ret=new DataImportMsg();
-		TChart& chart=*((TChart*)(Parent->Parent));
-		ret->Reciver=chart;
-		ret->DestSeries=this;
-		return ret;
+		if (ret != NULL)
+		{
+			if (Parent != NULL)
+			{
+				if (Parent->Parent != NULL)
+				{
+					TChart& chart=*((TChart*)(Parent->Parent));
+					ret->Reciver=chart; ret->DestSeries=this;
+					ret->Dispatch(); 
+				}
+			}
+		}
+	}
+	void DispatchDataImportMsg(WindowAddress& chart)
+	{
+		DataImportMsg* ret=new DataImportMsg();
+		if (ret != NULL)
+		{
+			ret->Reciver=chart; ret->DestSeries=this;		
+			ret->Dispatch(); 
+		}
 	}
 };
 
@@ -271,7 +304,6 @@ private:
 	SeriesArrayDeleteSeries ToDeleteSeries;
 public:
 	CArray<TChartSeries*,TChartSeries*> Series;
-	UpdateStatus upd;
     
 	int RegisterSeries(TChartSeries*);	
 public:
@@ -279,15 +311,14 @@ public:
 	~TSeriesArray();
 	int GetSize();
 	TChartSeries* operator[](int i);
+protected:
 	int Add(TChartSeries* t);
+public:
 	void DeleteItem(int i);
 	void ClearAll();    
 	void Serialize(CArchive& ar);
 	virtual void GetDC(CDC& canvas) {};
 	TChartSeries* CreateSeries(int);
-	COLORREF GetRandomColor();
-	void ParentUpdate(UpdateStatus sts);
-	virtual BOOL PostParentMessage(UINT msg,WPARAM wParam=0, LPARAM lParam=0);
 	int FindSeries(SeriesSearchPattern patern, TSeriesArray& results);
 
 };
