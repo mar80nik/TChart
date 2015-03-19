@@ -117,6 +117,12 @@ CString PointVsError::Format()
 	return ret;
 }
 
+PointVsError& PointVsError::operator=( const SimplePoint pnt )
+{
+	*((SimplePoint*)this) = pnt;	
+	return *this;
+}
+
 //--------------------------------
 
 void PointTypes::Serialize( CArchive& ar )

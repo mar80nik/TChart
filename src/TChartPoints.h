@@ -75,6 +75,7 @@ public:
 	PointVsError operator - (PointVsError pnt);
 	PointVsError operator + (PointVsError pnt);	
 	PointVsError operator / (PointVsError pnt);	
+	PointVsError& operator= (const SimplePoint pnt);	
 	PointVsError operator * (double a);	
 	void operator *= (double a);
 	void operator -=(PointVsError pnt);
