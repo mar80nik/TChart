@@ -1,9 +1,6 @@
 #pragma once
 
 #include "tchartglobal.h"
-#include "TChartPoints.h"
-#include "tchartelements.h"
-#include "tchartseries.h"
 #include "MouseTrackerWnd.h"
 #include "SetAxisRangeDlg.h"
 #include "SeriesListDlg.h"

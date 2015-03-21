@@ -1,14 +1,6 @@
-#if !defined(AFX_DIALOGBARTAB2_H__3A9AA990_81DA_45CA_8B8A_C10F79C29AF7__INCLUDED_)
-#define AFX_DIALOGBARTAB2_H__3A9AA990_81DA_45CA_8B8A_C10F79C29AF7__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-// DialogBarTab2.h : header file
-//
+
 #include "SeriesListCtrl.h"
-#include "tchartglobal.h"
-#include "tchart_resources.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // DialogBarTab2 dialog
@@ -53,8 +45,3 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnNMCustomdrawList2(NMHDR *pNMHDR, LRESULT *pResult);
 };
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_DIALOGBARTAB2_H__3A9AA990_81DA_45CA_8B8A_C10F79C29AF7__INCLUDED_)
