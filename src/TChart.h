@@ -1,9 +1,6 @@
 #pragma once
 
 #include "tchartglobal.h"
-#include "TChartPoints.h"
-#include "tchartelements.h"
-#include "tchartseries.h"
 #include "MouseTrackerWnd.h"
 #include "SetAxisRangeDlg.h"
 #include "SeriesListDlg.h"
@@ -96,7 +93,7 @@ public:
 	BOOL Create(CWnd* pParentWnd,const RECT& rect);
 	void UpdateNow(RepaintSource src);
 	void Clear(); 
-	virtual BOOL PostParentMessage(UINT msg,WPARAM wParam, LPARAM lParam);
+	virtual BOOL PostParentMessage(UINT msg, LPARAM lParam = 0, WPARAM wParam = 0);
 	virtual ChartRender* SetRender(int RenderID=CHARTRENDER_DEFAULT);
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -138,6 +135,7 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnDestroy();
 	void DestroyElements();
+	TChartSeries* ConvertMsgToSeries(MessagesInspectorSubject* msg);
 };
 
 

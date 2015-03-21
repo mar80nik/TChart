@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TChartSeries.h"	// Added by ClassView
+#include "TChartSeries.h"
 #include "tchart_resources.h"
 
 /////////////////////////////////////////////////////////////////////////////

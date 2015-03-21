@@ -1,15 +1,9 @@
-#if !defined(AFX_MYLISTCTRL_H__C4B42EC7_A9DE_418A_BB3E_F1ABBD7AB183__INCLUDED_)
-#define AFX_MYLISTCTRL_H__C4B42EC7_A9DE_418A_BB3E_F1ABBD7AB183__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-// MyListCtrl.h : header file
-//
-//#include "globalheader.h"
+
 #include "tchart_resources.h"
-#include "tchartseries.h"
 #include "SeriesStyleDlg.h"
+#include "SeriesValuesDlg.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // MyListCtrl window
 int CALLBACK CompareFunc1(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
@@ -72,8 +66,3 @@ public:
 };
 
 /////////////////////////////////////////////////////////////////////////////
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_MYLISTCTRL_H__C4B42EC7_A9DE_418A_BB3E_F1ABBD7AB183__INCLUDED_)

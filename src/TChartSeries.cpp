@@ -5,13 +5,15 @@
 //////////////////////////////////////////////////////////////////////
 
 int TChartSeries::SeriesCounter=0;
+CArray<WORD> ColorsStyle::ColorsTable;
 
 TChartSeries::TChartSeries(CString name)
 	: TAbstractGraphics(name)
 {
-	Status=SER_INACTIVE;	
-	update=true; upd=UPD_ON;
-	SeriesType=0; PID=-1; Parent=NULL;
+	Status=SER_ACTIVE;	
+	update=true; 
+	SeriesType=0; PID = SeriesCounter++; Parent=NULL;
+	PointType.Set(GenericPnt);	
 }
 
 TChartSeries::~TChartSeries() {}
@@ -75,19 +77,17 @@ int TChartSeries::FindMinMax()
 	return ret;
 }
 
-void TChartSeries::ParentUpdate( UpdateStatus sts ) {upd=sts;}
-
 void TChartSeries::SetVisible( BYTE t )
 {
 	TAbstractGraphics::SetVisible(t);
 	PostParentMessage(UM_SERIES_UPDATE);
 }
 
-BOOL TChartSeries::PostParentMessage( UINT msg,WPARAM wParam/*=0*/, LPARAM lParam/*=0*/ )
+void TChartSeries::SetParentUpdateStatus( UpdateStatus sts )
 {
-	BOOL ret=FALSE;
-	if(upd==UPD_ON) ret=TAbstractGraphics::PostParentMessage(msg,wParam,lParam);	
-	return ret;
+	upd=sts;
+	if(upd==UPD_ON) 
+		PostParentMessage(UM_SERIES_UPDATE);
 }
 
 PointsRgn::PointsRgn(const PointVsError& t)
@@ -130,13 +130,13 @@ void PointsRgn::operator+=(const PointsRgn& t)
 TSeriesArray::TSeriesArray(SeriesArrayDeleteSeries _DeleteSeries)
 {
 	for(WORD i=0;i<360;i++) ColorsTable.Add(i);
-	Parent=0; upd=UPD_ON;
+	Parent=0; 
 	ToDeleteSeries=_DeleteSeries;
 }
 
 TSeriesArray::~TSeriesArray() 
 {
-	ParentUpdate(UPD_OFF);
+	SetParentUpdateStatus(UPD_OFF);
 	ClearAll(); 
 }
 int TSeriesArray::GetSize() {return Series.GetSize();}
@@ -144,15 +144,16 @@ TChartSeries* TSeriesArray::operator[](int i) {return Series[i];}
 int TSeriesArray::Add(TChartSeries* t) 
 {
 	RegisterSeries(t); 
-	PostParentMessage(UM_SERIES_UPDATE,0,(LPARAM)this);	
-	return Series.Add(t);
+	int ret = Series.Add(t);
+	t->SetParentUpdateStatus(UPD_ON);
+	return ret;
 }
 void TSeriesArray::DeleteItem(int i) 
 {
 	if(i>=0 && i<Series.GetSize()) 
 	{
 		delete Series[i]; Series.RemoveAt(i);
-		PostParentMessage(UM_SERIES_UPDATE,0,(LPARAM)this);	
+		PostParentMessage(UM_SERIES_UPDATE);	
 	}
 }
 void TSeriesArray::ClearAll()
@@ -160,7 +161,7 @@ void TSeriesArray::ClearAll()
 	if( ToDeleteSeries==DELETE_SERIES ) 
 		for(int i=0;i<Series.GetSize();i++) delete Series[i];
 	Series.RemoveAll();    
-	PostParentMessage(UM_SERIES_UPDATE,0,(LPARAM)this);	
+	PostParentMessage(UM_SERIES_UPDATE);	
 }
 
 void TSeriesArray::Serialize(CArchive& ar)
@@ -177,7 +178,7 @@ void TSeriesArray::Serialize(CArchive& ar)
 	else
 	{		
 		ar >> SeriesSize;
-		ParentUpdate(UPD_OFF);
+		SetParentUpdateStatus(UPD_OFF);
 		
 		for(int i=0;i<SeriesSize;i++)
 		{
@@ -197,18 +198,17 @@ void TSeriesArray::Serialize(CArchive& ar)
 				Insp.DetachErrors();
 			}
 		}		
-		ParentUpdate(UPD_ON);
+		SetParentUpdateStatus(UPD_ON);
 	}
 }
 
 
 int TSeriesArray::RegisterSeries(TChartSeries* s)
 {
-	s->PID=(++(s->SeriesCounter)); CString t;
-	t.Format("%s_%d",s->Name,s->PID); s->Name=t;
-	s->Parent=this; 
+	CString t; t.Format("%s_%d",s->Name,s->GetPID()); 
+	s->Name=t; s->Parent=this;
 	s->SetRender(SERIES_RENDER);	
-	return s->PID;
+	return s->GetPID();
 }
 
 TChartSeries* TSeriesArray::CreateSeries(int type)
@@ -221,28 +221,6 @@ TChartSeries* TSeriesArray::CreateSeries(int type)
 	case POINTvsERROR: ret=new TPointVsErrorSeries(CString("")); break;
 	}
 	if(ret) ret->AssignColors(ColorsStyle(clWHITE,GetRandomColor()));
-	return ret;
-}
-
-COLORREF TSeriesArray::GetRandomColor()
-{
-	int h=(int)(ColorsTable.GetSize()*rand()/RAND_MAX);
-	HSLColor c1(ColorsTable[h]);
-	ColorsTable.RemoveAt(h);
-    return c1;
-}
-
-void TSeriesArray::ParentUpdate( UpdateStatus sts ) 
-{
-	upd=sts;
-	if(upd==UPD_ON) 
-		PostParentMessage(UM_SERIES_UPDATE,0,(LPARAM)this);
-}
-
-BOOL TSeriesArray::PostParentMessage( UINT msg,WPARAM wParam, LPARAM lParam )
-{
-	BOOL ret=FALSE;
-	if(upd==UPD_ON) ret=TAbstractElement::PostParentMessage(msg,wParam,lParam);	
 	return ret;
 }
 
@@ -271,7 +249,7 @@ int TSeriesArray::FindSeries( SeriesSearchPattern patern, TSeriesArray& results 
 		}
 		if(patern.mode & SERIES_PID)
 		{
-			if(Series[i]->PID == patern.PID)	found&=TRUE;
+			if(Series[i]->GetPID() == patern.PID)	found&=TRUE;
 			else found&=FALSE;
 		}
 

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "SeriesListCtrl.h"
-#include "SeriesValuesDlg.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // MyListCtrl
@@ -138,13 +137,13 @@ void SeriesListCtrl::UpdateSeriesList()
 			lvi.mask = LVIF_TEXT; lvi.iSubItem++;		
 			T.Format("%d",series->GetSize()); SetItemText(i,lvi.iSubItem++,(char*)LPCTSTR(T)); 
 			series->GetStatus(T); SetItemText(i,lvi.iSubItem++,(char*)LPCTSTR(T));	
-			T.Format("%d",series->PID); SetItemText(i,lvi.iSubItem++,(char*)LPCTSTR(T)); 
+			T.Format("%d",series->GetPID()); SetItemText(i,lvi.iSubItem++,(char*)LPCTSTR(T)); 
 
 			lvi.mask=LVIF_STATE; lvi.stateMask = LVIS_SELECTED | LVIS_FOCUSED;		
 			lvi.state = 0; SetItemState(i,&lvi);		
 
 			Items[k].Name=series->Name; Items[k].Size=series->GetSize(); Items[k].Status=series->GetStatus();	
-			Items[k].PID=series->PID;			
+			Items[k].PID=series->GetPID();			
 		}
 		LastN=Series.GetSize();
 		if(n>=0)

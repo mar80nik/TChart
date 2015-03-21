@@ -237,9 +237,7 @@ void TChart::OnPaint()
 				{
 					DefaultBufferRender(&bmp);
 				}
-
-		
-	
+					
 				InfoOnCanvas.dt1=OnPaintTimer.StopStart();
 
 				HGDIOBJ tf=bmp.SelectObject(font2); bmp.SetTextColor(clWHITE); bmp.SetBkMode(TRANSPARENT);
@@ -292,7 +290,7 @@ TextCanvasErase::~TextCanvasErase()
 
 void TChart::DefaultBufferRender(BMPanvas* canvas)
 {
-	int i; void *x; //CString T; 
+	int i; void *x;
 	BMPanvas &bmp=*canvas; 
 
 	CalcOriginScale(); 	
@@ -458,10 +456,20 @@ int TChart::RegisterChartElement( TChartElement* elmnt)
 	return Elements.Add(elmnt);
 }
 
-BOOL TChart::PostParentMessage( UINT msg,WPARAM wParam, LPARAM lParam )
+BOOL TChart::PostParentMessage( UINT msg, LPARAM lParam, WPARAM wParam )
 {
-	if(m_hWnd!=NULL) return CWnd::PostMessage(msg,wParam, lParam);
-	else return FALSE;
+	BOOL ret;
+	if(::IsWindow(m_hWnd)) 
+	{
+		if (msg == UM_SERIES_UPDATE)
+		{
+			lParam = (LPARAM)&Series;
+		}
+		ret = this->PostMessage(msg,wParam, lParam);
+		return ret;
+	}		
+	else 
+		return FALSE;
 }
 
 ChartRender* TChart::GetParentRender( int RenderID/*=0*/ )
@@ -523,23 +531,51 @@ BOOL TChart::SeriesIsChanged()
 	return (LastSeriesUpdateID!=Series.GetModificationID() ? TRUE:FALSE);
 }
 
-LRESULT TChart::OnSeriesDataImport( WPARAM wParam, LPARAM lParam )
+TChartSeries* TChart::ConvertMsgToSeries(MessagesInspectorSubject* msg)
 {
-	MessagesInspectorSubject* msg=(MessagesInspectorSubject*)lParam; void *x;
-	BYTE t=0;
+	TChartSeries* ret = NULL;
+	switch (msg->GetClass())
+	{
+	case SIMPLE_POINT: ret = ((TSimplePointSeries::DataImportMsg*)msg)->DestSeries; break;
+	case POINTvsERROR: ret = ((TPointVsErrorSeries::DataImportMsg*)msg)->DestSeries; break;
+	default: ASSERT(0);
+	}
+	return ret;
+}
 
-	if(msg)
+LRESULT TChart::OnSeriesDataImport( WPARAM wParam, LPARAM lParam )
+{	
+	if(lParam != 0)
 	{		
-		if((x=Series.GainAcsess(WRITE))!=0)
+		void *x;	BYTE t=0;
+		MessagesInspectorSubject* msg=(MessagesInspectorSubject*)lParam; 
+		if (msg->GetClass() >= TCHART_MSG_TYPE_FIRST && msg->GetClass() <= TCHART_MSG_TYPE_LAST)
 		{
-			SeriesProtector Protector(x); TSeriesArray& Series(Protector);
-			for(int i=0;i<Series.GetSize();i++)
+			TChartSeries* import_series = NULL;
+			if ((import_series = ConvertMsgToSeries(msg)) != NULL)
 			{
-				if(Series[i]->ImportData(msg,DO_NOT_DELETE_MSG)!=0) t++;				
-			}
-		}
+				if((x=Series.GainAcsess(WRITE))!=0)
+				{
+					SeriesProtector Protector(x); TSeriesArray& SeriesArray(Protector);
+					SeriesSearchPattern filter; filter.mode = SERIES_PID; filter.PID = import_series->GetPID();
+					TSeriesArray results; SeriesArray.FindSeries(filter, results);
+					if (results.GetSize() == 0)
+					{						
+						SeriesArray.Add(import_series);
+					}
+					else
+						if (results.GetSize() == 1)
+					{
+						results[0]->ImportData(msg,DO_NOT_DELETE_MSG);
+					}
+					else
+					{
+						ASSERT(0);
+					}
+				}
+			}			
+		}		
 		delete msg;
-		if(t) UpdateNow(REPAINT_DEFAULT);
 	}
 	return 0;
 }
@@ -554,10 +590,8 @@ LRESULT TChart::OnSeriesUpdate( WPARAM wParam, LPARAM lParam )
 {
 	if (::IsWindow(SeriesListDialog.m_hWnd))
 	{
-		//SeriesListDialog.PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
+		SeriesListDialog.PostMessage(UM_SERIES_UPDATE,wParam,lParam);		
 	}
-	//CWnd* mainfrm=AfxGetMainWnd();
-	//if(mainfrm!=NULL) mainfrm->PostMessage(UM_SERIES_UPDATE,0,(LPARAM)&Series);		
 	UpdateNow(REPAINT_DEFAULT);
 	return 0;
 }

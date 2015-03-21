@@ -30,7 +30,7 @@ public:
 	CComboBox SymbolStyleCombo;
 	CComboBox LineStyleCombo;
 	CComboBox ErrBarsStyleCombo;
-	afx_msg void OnBnClickedButton2();
+	afx_msg void UpdateSeriesStyle();
 	afx_msg void OnBnClickedLineColor();
 	afx_msg void OnBnClickedFillColor();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);

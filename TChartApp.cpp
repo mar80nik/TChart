@@ -12,12 +12,11 @@
 
 WindowAddress MyThread::ConfigParentWindow = WindowAddress();
 WindowAddress LogMessage::LogWindow = WindowAddress();
-MessagesInspector* MessagesInspectorSubject::GlobalInspector = NULL;
+MessagesInspector GlobalInspector;
+MessagesInspector* MessagesInspectorSubject::GlobalInspector=&::GlobalInspector;
 CString SeriesListCtrl::GetSaveAsPath()
 {
 	return "d:\\";
-	//CMainFrame* MW=(CMainFrame*)AfxGetMainWnd();
-	//MW->GetActiveDocument()->GetPathName();
 }
 
 
