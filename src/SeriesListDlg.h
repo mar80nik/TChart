@@ -39,9 +39,8 @@ protected:
 	afx_msg void OnLvnEndlabeleditList2(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg LRESULT OnSeriesUpdate(WPARAM wParam, LPARAM lParam );
 	afx_msg HBRUSH OnCtlColor( CDC*, CWnd*, UINT );
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
-public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnNMCustomdrawList2(NMHDR *pNMHDR, LRESULT *pResult);
+	//}}AFX_MSG
+	DECLARE_MESSAGE_MAP()
 };

@@ -29,9 +29,9 @@ BEGIN_MESSAGE_MAP(SeriesListDlg, CDialog)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_TCHART_LIST2, OnLvnColumnclickList2)
 	ON_NOTIFY(LVN_ENDLABELEDIT, IDC_TCHART_LIST2, OnLvnEndlabeleditList2)
 	ON_MESSAGE(UM_SERIES_UPDATE,OnSeriesUpdate)	
+	ON_WM_CREATE()
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TCHART_LIST2, OnNMCustomdrawList2)
 //}}AFX_MSG_MAP
-ON_WM_CREATE()
-ON_NOTIFY(NM_CUSTOMDRAW, IDC_TCHART_LIST2, OnNMCustomdrawList2)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
