@@ -6,27 +6,6 @@ enum SeriesStatus {SER_INACTIVE, SER_ACTIVE,SER_CALIBRATOR,SER_LOCKED,SER_ERROR}
 enum UpdateStatus {UPD_ON,UPD_OFF};
 enum SeriesSearchPatternMode {SERIES_NAME=1, SERIES_STATUS=2, SERIES_TYPE=4, SERIES_PID=8};
 
-struct ColorsStyle 
-{
-	COLORREF BColor,PColor; 
-	static CArray<WORD> ColorsTable;
-
-	ColorsStyle(COLORREF bColor=clWHITE, COLORREF pColor=clBLACK) 
-	{
-		BColor=bColor; PColor=pColor;
-	}		
-	ColorsStyle(COLORREF bColor, ChartColor pColor) 
-	{
-		BColor=bColor; PColor=GetRandomColor();
-	}		
-	ColorsStyle(ChartColor bColor, COLORREF pColor=clBLACK) 
-	{
-		BColor=GetRandomColor(); PColor=pColor;
-	}		
-	static COLORREF GetRandomColor();
-	void Serialize(CArchive& ar);
-};
-
 class TAbstractElement
 {
 	static unsigned int id_cntr;
@@ -74,7 +53,7 @@ protected:
 	virtual ChartRender* GetParentRender(int RenderID=CHARTRENDER_DEFAULT);
 public:
 	TAbstractGraphics(CString name="noname");
-	virtual void AssignColors(ColorsStyle &style);
+	virtual void AssignColors(const ColorsStyle &style);
 	virtual void Draw(BMPanvas*);
 	virtual void _Draw(BMPanvas* Parent) {};
 	virtual ~TAbstractGraphics();

@@ -179,8 +179,8 @@ public:
 //////////////////////////////////////////////////////////////////////////
 struct LineStyleStyleParams 
 {
-	ChartLineStyles style;
-	LineStyleStyleParams(ChartLineStyles _style=STRAIGHT) 
+	ChartSerieStyles style;
+	LineStyleStyleParams(ChartSerieStyles _style=STRAIGHT) 
 	{
 		style=_style;
 	}
@@ -209,8 +209,8 @@ protected:
 struct SymbolStyleStyleParams 
 {
 	int dx,dy;
-	ChartSymbolStyles style;
-	SymbolStyleStyleParams(ChartSymbolStyles _style=CIRCLE, int _dx=4, int _dy=4) 
+	ChartSerieStyles style;
+	SymbolStyleStyleParams(ChartSerieStyles _style=CIRCLE, int _dx=4, int _dy=4) 
 	{
 		dx=_dx; dy=_dy; style=_style;
 	}
@@ -241,8 +241,8 @@ protected:
 struct ErrorBarStyleParams 
 {
 	int CapWidth;
-	ChartErrorBarStyles style;
-	ErrorBarStyleParams(ChartErrorBarStyles _style=NO_BARS, int cap=2) { CapWidth=cap; style=_style; }
+	ChartSerieStyles style;
+	ErrorBarStyleParams(ChartSerieStyles _style=NO_BARS, int cap=2) { CapWidth=cap; style=_style; }
 	void Serialize(CArchive& ar);
 };
 template<class C1>

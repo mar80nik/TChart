@@ -33,10 +33,41 @@ enum TChartMessages
 #define clRED RGB(255,0,0)
 #define clGREEN RGB(0,255,0)
 #define clBLUE RGB(0,0,255)
+enum ChartColor {RANDOM_COLOR};
 
-enum ChartLineStyles {NO_LINE=1000, STRAIGHT};
-enum ChartSymbolStyles {NO_SYMBOL=1000, CIRCLE, CROSS45, VERT_LINE};
-enum ChartErrorBarStyles {NO_BARS=1000, POINTvsERROR_BAR};
+struct ColorsStyle 
+{
+	COLORREF BColor,PColor; 
+	static CArray<WORD> ColorsTable;
+
+	explicit ColorsStyle(COLORREF bColor=clWHITE, COLORREF pColor=clBLACK) 
+	{
+		BColor=bColor; PColor=pColor;
+	}		
+	explicit ColorsStyle(COLORREF bColor, ChartColor pColor) 
+	{
+		BColor=bColor; PColor=GetRandomColor();
+	}		
+	explicit ColorsStyle(ChartColor bColor, COLORREF pColor=clBLACK) 
+	{
+		BColor=GetRandomColor(); PColor=pColor;
+	}		
+	static COLORREF GetRandomColor();
+	void Serialize(CArchive& ar);
+};
+
+enum ChartSerieStyles {
+	MIN_LINE_STYLE = 1000,
+		NO_LINE, STRAIGHT,							//Line styles
+	MAX_LINE_STYLE,
+	MIN_SYMBOL_STYLE,
+		NO_SYMBOL, CIRCLE, CROSS45, VERT_LINE,		//Symbol styles
+	MAX_SYMBOL_STYLE,
+	MIN_EBAR_STYLE,
+		NO_BARS, POINTvsERROR_BAR,					//ErrorBar styles
+	MAX_EBAR_STYLE,
+	SYMBOL_DX, SYMBOL_DY, EBAR_CAP,
+};
 
 enum {ID_CHART=1234567,ID_CHART_FRAME};
 
@@ -44,7 +75,6 @@ enum ChartAxisTickStyle {TICK_NONE,TICK_IN,TICK_OUT,TICK_INOUT};
 enum ChartAxisLayoutStyle {AXIS_NONE,LEFT_AXIS,RIGHT_AXIS,TOP_AXIS,BOTTOM_AXIS};
 
 enum ChartRendersID {CHARTRENDER_DEFAULT,SERIES_RENDER,FRAME_RENDER};
-enum ChartColor {RANDOM_COLOR};
 
 struct TChartInterval
 {
@@ -63,4 +93,5 @@ struct TChartInterval
 };
 
 enum {SIMPLE_POINT_MSG=0xabcdea,POINTvsERROR_MSG};
+
 

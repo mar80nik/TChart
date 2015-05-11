@@ -136,6 +136,11 @@ public:
 	afx_msg void OnDestroy();
 	void DestroyElements();
 	TChartSeries* ConvertMsgToSeries(MessagesInspectorSubject* msg);
+
+	HRESULT Visualize(	const CString& name, const DoubleArray& x, const DoubleArray& y, 
+						const TChartSeriesStyleHelper& style = TChartSeriesStyleHelper());
+	HRESULT Visualize(	const CString& name, const DoubleArray& x, const DoubleArray& y, const DoubleArray& dy, 
+		const TChartSeriesStyleHelper& style = TChartSeriesStyleHelper());
 };
 
 

@@ -46,16 +46,16 @@ BOOL SeriesStyleDialog::OnInitDialog()
 
 	int n;
 
-	n=LineStyleCombo.AddString("No line"); LineStyleCombo.SetItemData(n,ChartLineStyles::NO_LINE);
-	n=LineStyleCombo.AddString("Straight");	LineStyleCombo.SetItemData(n,ChartLineStyles::STRAIGHT);
+	n=LineStyleCombo.AddString("No line"); LineStyleCombo.SetItemData(n,ChartSerieStyles::NO_LINE);
+	n=LineStyleCombo.AddString("Straight");	LineStyleCombo.SetItemData(n,ChartSerieStyles::STRAIGHT);
 
-	n=SymbolStyleCombo.AddString("No symbol");	SymbolStyleCombo.SetItemData(n,ChartSymbolStyles::NO_SYMBOL);
-	n=SymbolStyleCombo.AddString("Circle");	SymbolStyleCombo.SetItemData(n,ChartSymbolStyles::CIRCLE);
-	n=SymbolStyleCombo.AddString("Cross 45");	SymbolStyleCombo.SetItemData(n,ChartSymbolStyles::CROSS45);
-	n=SymbolStyleCombo.AddString("Vertical line");	SymbolStyleCombo.SetItemData(n,ChartSymbolStyles::VERT_LINE);
+	n=SymbolStyleCombo.AddString("No symbol");	SymbolStyleCombo.SetItemData(n,ChartSerieStyles::NO_SYMBOL);
+	n=SymbolStyleCombo.AddString("Circle");	SymbolStyleCombo.SetItemData(n,ChartSerieStyles::CIRCLE);
+	n=SymbolStyleCombo.AddString("Cross 45");	SymbolStyleCombo.SetItemData(n,ChartSerieStyles::CROSS45);
+	n=SymbolStyleCombo.AddString("Vertical line");	SymbolStyleCombo.SetItemData(n,ChartSerieStyles::VERT_LINE);
 
-	n=ErrBarsStyleCombo.AddString("No bars");	ErrBarsStyleCombo.SetItemData(n,ChartErrorBarStyles::NO_BARS);
-	n=ErrBarsStyleCombo.AddString("Both bars");	ErrBarsStyleCombo.SetItemData(n,ChartErrorBarStyles::POINTvsERROR_BAR);
+	n=ErrBarsStyleCombo.AddString("No bars");	ErrBarsStyleCombo.SetItemData(n,ChartSerieStyles::NO_BARS);
+	n=ErrBarsStyleCombo.AddString("Both bars");	ErrBarsStyleCombo.SetItemData(n,ChartSerieStyles::POINTvsERROR_BAR);
 
 	void *x; int i;
 	if((x=Series->GainAcsess(READ))!=NULL)

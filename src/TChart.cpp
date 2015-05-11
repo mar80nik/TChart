@@ -631,3 +631,42 @@ void TChart::OnDestroy()
 
 }
 
+HRESULT TChart::Visualize( const CString& name, const DoubleArray& x, const DoubleArray& y, const TChartSeriesStyleHelper& style )
+{
+	TSimplePointSeries *t1 = NULL; 
+	if((t1 = new TSimplePointSeries(name)) IS_NOT NULL)	
+	{
+		SimplePoint val; 
+		t1->SetParentUpdateStatus(UPD_OFF);
+
+		style.Apply(t1);
+
+		for(int i = 0; i < x.GetSize(); i++) 
+		{
+			t1->AddXY(SimplePoint(x[i], y[i]));
+		}
+		t1->DispatchDataImportMsg(*this); 			
+		return S_OK;
+	}		
+	return E_FAIL;
+}
+
+HRESULT TChart::Visualize( const CString& name, const DoubleArray& x, const DoubleArray& y, const DoubleArray& dy, const TChartSeriesStyleHelper& style /*= TChartSeriesStyleHelper()*/ )
+{
+	TPointVsErrorSeries *t1 = NULL;
+	if((t1 = new TPointVsErrorSeries(name)) IS_NOT NULL)	
+	{
+		t1->SetParentUpdateStatus(UPD_OFF);
+		
+		style.Apply(t1);
+
+		for(int i = 0; i < x.GetSize(); i++) 
+		{
+			t1->AddXY(PointVsError(x[i], y[i], dy[i]));
+		}
+		t1->DispatchDataImportMsg(*this);
+		return S_OK;
+	}				
+	return E_FAIL;
+}
+

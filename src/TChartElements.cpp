@@ -164,7 +164,7 @@ void TAbstractGraphics::Draw(BMPanvas* canvas)
 	}
 }		
 
-void TAbstractGraphics::AssignColors(ColorsStyle &style)
+void TAbstractGraphics::AssignColors(const ColorsStyle &style)
 {
 	*((ColorsStyle*)this)=style; HGDIOBJ t; BOOL ret;
 	t=brush.Detach(); ret=DeleteObject(t);

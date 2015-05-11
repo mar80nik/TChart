@@ -115,7 +115,7 @@ public:
 	virtual int ImportData(MessagesInspectorSubject* pnt,TChartImportMsgDestroy destroy)=0;
 
 	virtual void SetStyle(ChartSeriesStyleParams style)=0;
-	virtual void AssignColors(ColorsStyle &style)=0;
+	virtual void AssignColors(const ColorsStyle &style)=0;
 	virtual void SetVisible(BYTE t);
 	virtual void SetParentUpdateStatus( UpdateStatus sts );
 };
@@ -151,7 +151,7 @@ public:
 		ChartSeriesStyleTemplate<PointToDrawType>::SetStyle(style);
 		PostParentMessage(UM_SERIES_UPDATE);	
 	}
-	virtual void AssignColors(ColorsStyle &style)
+	virtual void AssignColors(const ColorsStyle &style)
 	{
 		TAbstractGraphics::AssignColors(style);
 		PostParentMessage(UM_SERIES_UPDATE);	
@@ -292,6 +292,81 @@ public:
 
 typedef SeriesTemplate<SIMPLE_POINT, SimplePoint, SimplePointArray, CPoint> TSimplePointSeries;
 typedef SeriesTemplate<POINTvsERROR, PointVsError, PointVsErrorArray, CPointVsError> TPointVsErrorSeries;
+
+
+#define SYMBOL_DX(x) SYMBOL_DX << x
+#define SYMBOL_DY(x) SYMBOL_DY << x
+#define EBAR_CAP(x) EBAR_CAP << x
+ 
+class TChartSeriesStyleHelper: public TypeArray<ChartSerieStyles>, public ColorsStyle
+{
+protected:
+	TypeArray<unsigned int> params;
+public:
+	LineStyleStyleParams	line;
+	SymbolStyleStyleParams	symbol;
+	ErrorBarStyleParams		Ebar;
+
+	int cap_width;
+
+	TChartSeriesStyleHelper(ColorsStyle color = ColorsStyle(clRED, RANDOM_COLOR)): ColorsStyle(color)
+	{
+		this->operator<<(NO_SYMBOL);
+		cap_width = 2;
+	}
+	virtual TChartSeriesStyleHelper& operator << (const ChartSerieStyles& style)
+	{
+		this->TypeArray<ChartSerieStyles>::operator<<(style);
+		return *this;
+	}
+	virtual TChartSeriesStyleHelper& operator << (const unsigned int& param)
+	{
+		params << param;
+		return *this;
+	}
+	virtual TChartSeriesStyleHelper& operator << (const ColorsStyle& colors)
+	{
+		PColor = colors.PColor; BColor = colors.BColor;		
+		return *this;
+	}
+
+	template <int ID, class TypeOfPoint, class PointStoreType, class PointToDrawType> 
+	void Apply( SeriesTemplate<ID, TypeOfPoint, PointStoreType, PointToDrawType>* series ) const
+	{
+		series->SetParentUpdateStatus(UPD_OFF);
+
+		series->AssignColors(*this);
+
+		for (int i = 0, j = 0; i < GetSize(); i++)
+		{
+			ChartSerieStyles s = operator[](i);
+			if (s > MIN_LINE_STYLE && s < MAX_LINE_STYLE)
+			{
+				series->_LineStyle::Set(s);
+			}
+			else if (s > MIN_SYMBOL_STYLE && s < MAX_SYMBOL_STYLE)
+			{
+				series->_SymbolStyle::Set(s); 
+			}
+			else if (s > MIN_EBAR_STYLE && s < MAX_EBAR_STYLE)
+			{
+				series->_ErrorBarStyle::Set(s);
+			}
+			else if (s == SYMBOL_DX)
+			{
+				series->_SymbolStyle::dx = params[j++];
+			}
+			else if (s == SYMBOL_DY)
+			{
+				series->_SymbolStyle::dy = params[j++];
+			}
+			else if (s == EBAR_CAP)
+			{
+				series->_ErrorBarStyle::CapWidth = params[j++];
+			}
+		}
+	}
+};
 
 //**************************************
 enum SeriesArrayDeleteSeries {DELETE_SERIES,DO_NOT_DELETE_SERIES};

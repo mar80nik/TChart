@@ -302,3 +302,5 @@ int SeriesTemplate<POINTvsERROR, PointVsError, PointVsErrorArray, CPointVsError>
 	}
 	return 1;
 }
+
+
