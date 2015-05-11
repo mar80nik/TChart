@@ -277,8 +277,7 @@ void SeriesListCtrl::OnDeleteSeries()
 
 void SeriesListCtrl::OnSaveAsText()
 {
-
-	CFileDialog fd(false,"txt"); BYTE cr[3]; cr[0]=0xd;cr[1]=0xa;cr[2]=0;
+	BYTE cr[3]; cr[0]=0xd;cr[1]=0xa;cr[2]=0;
 	int i,j, match, err=0, num;	
 
 	POSITION pos=GetFirstSelectedItemPosition();		
@@ -320,8 +319,7 @@ void SeriesListCtrl::OnSaveAsText()
 					CFileException ex;
 					if(f.Open(temp,CFile::modeCreate | CFile::modeWrite,&ex))
 					{						
-						temp.Format("%s: points=%d",series->Name,series->GetSize());  //temp+=cr;					
-						//f.Write(LPCSTR(temp),temp.GetLength());f.Write(cr,sizeof(cr));
+						temp.Format("%s: points=%d",series->Name,series->GetSize());  
 						
 						for(int i=0;i<series->GetSize();i++)
 						{
