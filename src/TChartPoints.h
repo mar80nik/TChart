@@ -134,6 +134,7 @@ public:
 	Point1DArray() {}
 	~Point1DArray() {}
 	Point1D operator[](int n);
+	int Set(const int i, const double pnt );
 	int Add(Point1D& pnt);
 	double* GetX();
 	virtual void SetSize(int n);
@@ -151,6 +152,7 @@ public:
 	SimplePointArray() {};
 	virtual ~SimplePointArray() {};
 	SimplePoint operator[](int n);
+	int Set(const int i, const SimplePoint& pnt );
 	int Add(SimplePoint& pnt);
 	double* GetY();
 	virtual void SetSize(int n);
@@ -167,6 +169,7 @@ public:
 	PointVsErrorArray() {};
 	virtual ~PointVsErrorArray() {};
 	PointVsError operator[](int n);
+	int Set(const int i, const PointVsError& pnt );
 	int Add(PointVsError& pnt);
 	double* GetdY();
 	virtual void SetSize(int n);

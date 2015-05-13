@@ -477,6 +477,16 @@ int Point1DArray::CopyFrom( const Point1DArray& src, UINT total/*=0*/, UINT src_
 	return total;
 }
 
+int Point1DArray::Set( const int i, const double pnt )
+{
+	if (i >=0 && i < GetSize())
+	{
+		x[i] = pnt;
+		return i;
+	}
+	return -1;
+}
+
 int SimplePointArray::CopyFrom( const SimplePointArray& src, UINT total, UINT src_shift )
 {	
 	UINT n=src.x.GetSize();
@@ -487,6 +497,16 @@ int SimplePointArray::CopyFrom( const SimplePointArray& src, UINT total, UINT sr
 	const double *ySrc = src.y.GetData(); ySrc += src_shift; 
 	memcpy(y.GetData(),ySrc,total*sizeof(double));	
 	return total;
+}
+
+int SimplePointArray::Set( const int i, const SimplePoint& pnt )
+{
+	if (i >=0 && i < GetSize())
+	{
+		x[i] = pnt.x; y[i] = pnt.y;
+		return i;
+ 	}
+	return -1;
 }
 
 int PointVsErrorArray::CopyFrom( const PointVsErrorArray& src, UINT total, UINT src_shift )
@@ -505,4 +525,15 @@ PointVsError PointVsErrorArray::operator[]( int n ) { return PointVsError (Simpl
 int PointVsErrorArray::Add( PointVsError& pnt ) { SimplePointArray::Add(pnt); return dy.Add(pnt.dy); }
 double* PointVsErrorArray::GetdY() { return dy.GetData(); }
 void PointVsErrorArray::SetSize( int n ) { SimplePointArray::SetSize(n); dy.SetSize(n);}
+
+int PointVsErrorArray::Set( const int i, const PointVsError& pnt )
+{
+	if (i >=0 && i < GetSize())
+	{
+		x[i] = pnt.x; y[i] = pnt.y; dy[i] = pnt.dy;
+		return i;
+	}
+	return -1;
+}
+
 //////////////////////////////////////////////////////////////////////////
