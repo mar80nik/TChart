@@ -43,10 +43,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);d:\REPO\my_lib\src\;d:\REPO\my_gsl\src\;d:\REPO\my_gsl\header;$(SolutionDir)\src</IncludePath>
+    <IncludePath>$(IncludePath);$(SolutionDir);$(SolutionDir)\src;$(SolutionDir)\..\my_lib\src\;$(SolutionDir)\..\my_gsl\src;$(SolutionDir)\..\my_gsl\header;$(SolutionDir)\..\my_lib\zlib\header;$(SolutionDir)\..\my_lib\directx\include;$(SolutionDir)\..\TChart\src</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)\..\my_gsl\lib\;$(SolutionDir)\..\my_lib\zlib\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath);$(SolutionDir);$(SolutionDir)\src;$(SolutionDir)\..\my_lib\src\;$(SolutionDir)\..\my_gsl\src;$(SolutionDir)\..\my_gsl\header;$(SolutionDir)\..\my_lib\zlib\header;$(SolutionDir)\..\my_lib\directx\include;$(SolutionDir)\..\TChart\src</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)\..\my_gsl\lib\;$(SolutionDir)\..\my_lib\zlib\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
